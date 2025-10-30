@@ -4,7 +4,7 @@
 
 BlockSecure Chain is a comprehensive security solution that combines automated vulnerability detection, on-chain monitoring, and real-time threat prevention for smart contracts on Ethereum, Polygon, and other EVM-compatible chains.
 
-[![CI/CD Pipeline](https://github.com/yourusername/blocksecure-chain/workflows/CI/CD%20Pipeline/badge.svg)](https://github.com/yourusername/blocksecure-chain/actions)
+[![CI/CD Pipeline](https://github.com/bandidood/blocksecure-chain/workflows/CI/CD%20Pipeline/badge.svg)](https://github.com/bandidood/blocksecure-chain/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## 🌟 Features
@@ -65,7 +65,7 @@ blocksecure-chain/
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/blocksecure-chain.git
+   git clone https://github.com/bandidood/blocksecure-chain.git
    cd blocksecure-chain
    ```
 

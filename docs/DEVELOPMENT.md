@@ -30,7 +30,7 @@ slither --version
 
 ### 1. Clone Repository
 ```bash
-git clone https://github.com/yourusername/blocksecure-chain.git
+git clone https://github.com/bandidood/blocksecure-chain.git
 cd blocksecure-chain
 ```
 

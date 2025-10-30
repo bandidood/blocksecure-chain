@@ -12,7 +12,7 @@ Get BlockSecure Chain up and running in 5 minutes!
 
 ```bash
 # Clone, install, and test
-git clone https://github.com/yourusername/blocksecure-chain.git && \
+git clone https://github.com/bandidood/blocksecure-chain.git && \
 cd blocksecure-chain && \
 npm install --legacy-peer-deps && \
 bash scripts/integration-test.sh
@@ -271,7 +271,7 @@ npm run scan -- check            # Check availability
 
 Having issues? Check:
 1. [Troubleshooting Guide](./docs/DEVELOPMENT.md#troubleshooting)
-2. [GitHub Issues](https://github.com/yourusername/blocksecure-chain/issues)
+2. [GitHub Issues](https://github.com/bandidood/blocksecure-chain/issues)
 3. [Discord Community](https://discord.gg/blocksecure)
 
 ---
