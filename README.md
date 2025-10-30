@@ -268,10 +268,9 @@ This project is licensed under the MIT License - see the [LICENSE](./LICENSE) fi
 
 ## 📬 Contact
 
-- **Website:** https://blocksecure.chain
-- **Twitter:** [@BlockSecureChain](https://twitter.com/BlockSecureChain)
-- **Discord:** [Join our community](https://discord.gg/blocksecure)
-
+- **Website:** 
+- **Twitter:**
+- **Discord:** [Join our community]
 ---
 
 **⚠️ Disclaimer:** BlockSecure Chain is an automated security analysis tool. Always conduct professional security audits before deploying contracts to production.
