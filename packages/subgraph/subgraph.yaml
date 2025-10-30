@@ -1,0 +1,36 @@
+specVersion: 0.0.5
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: SecurityOracle
+    network: mainnet
+    source:
+      address: "0x0000000000000000000000000000000000000000" # Replace with deployed contract address
+      abi: SecurityOracle
+      startBlock: 0
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Vulnerability
+        - AuditReport
+        - Contract
+      abis:
+        - name: SecurityOracle
+          file: ../contracts/artifacts/contracts/SecurityOracle.sol/SecurityOracle.json
+      eventHandlers:
+        - event: VulnerabilityReported(indexed uint256,indexed address,uint8,uint8,address)
+          handler: handleVulnerabilityReported
+        - event: VulnerabilityVerified(indexed uint256,indexed address)
+          handler: handleVulnerabilityVerified
+        - event: VulnerabilityResolved(indexed uint256,indexed address)
+          handler: handleVulnerabilityResolved
+        - event: AuditReportSubmitted(indexed address,indexed address,bool)
+          handler: handleAuditReportSubmitted
+        - event: ContractBlacklisted(indexed address,string)
+          handler: handleContractBlacklisted
+        - event: ContractWhitelisted(indexed address)
+          handler: handleContractWhitelisted
+      file: ./src/mapping.ts

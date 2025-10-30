@@ -1,0 +1,39 @@
+type Vulnerability @entity {
+  id: ID!
+  vulnerabilityId: BigInt!
+  contractAddress: Bytes!
+  contract: Contract!
+  vulnType: Int!
+  severity: Int!
+  reporter: Bytes!
+  timestamp: BigInt!
+  verified: Boolean!
+  resolved: Boolean!
+  verifier: Bytes
+  resolver: Bytes
+}
+
+type AuditReport @entity {
+  id: ID!
+  contractAddress: Bytes!
+  contract: Contract!
+  totalVulnerabilities: BigInt!
+  criticalCount: BigInt!
+  highCount: BigInt!
+  mediumCount: BigInt!
+  lowCount: BigInt!
+  isSecure: Boolean!
+  timestamp: BigInt!
+  auditor: Bytes!
+}
+
+type Contract @entity {
+  id: ID!
+  address: Bytes!
+  isBlacklisted: Boolean!
+  vulnerabilities: [Vulnerability!]! @derivedFrom(field: "contract")
+  auditReports: [AuditReport!]! @derivedFrom(field: "contract")
+  blacklistReason: String
+  blacklistedAt: BigInt
+  whitelistedAt: BigInt
+}

@@ -1,0 +1,116 @@
+version: '3.8'
+
+services:
+  # Local Ethereum node
+  hardhat-node:
+    image: node:20-alpine
+    working_dir: /app
+    command: npx hardhat node
+    volumes:
+      - ./packages/contracts:/app
+    ports:
+      - "8545:8545"
+    networks:
+      - blocksecure-network
+
+  # Backend API
+  backend:
+    build:
+      context: ./packages/backend
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=development
+      - PORT=3001
+      - RPC_URL=http://hardhat-node:8545
+      - MONGODB_URI=mongodb://mongo:27017/blocksecure
+    depends_on:
+      - hardhat-node
+      - mongo
+    volumes:
+      - ./packages/backend:/app
+      - /app/node_modules
+    networks:
+      - blocksecure-network
+
+  # Frontend
+  frontend:
+    build:
+      context: ./packages/frontend
+      dockerfile: Dockerfile
+    ports:
+      - "5173:5173"
+    environment:
+      - VITE_API_URL=http://localhost:3001
+    volumes:
+      - ./packages/frontend:/app
+      - /app/node_modules
+    networks:
+      - blocksecure-network
+
+  # MongoDB
+  mongo:
+    image: mongo:7
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - blocksecure-network
+
+  # The Graph Node (optional)
+  graph-node:
+    image: graphprotocol/graph-node:latest
+    ports:
+      - "8000:8000"
+      - "8001:8001"
+      - "8020:8020"
+      - "8030:8030"
+      - "8040:8040"
+    depends_on:
+      - postgres
+      - ipfs
+    environment:
+      postgres_host: postgres
+      postgres_user: graph-node
+      postgres_pass: let-me-in
+      postgres_db: graph-node
+      ipfs: 'ipfs:5001'
+      ethereum: 'mainnet:http://hardhat-node:8545'
+      GRAPH_LOG: info
+    networks:
+      - blocksecure-network
+
+  # PostgreSQL for The Graph
+  postgres:
+    image: postgres:15
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: graph-node
+      POSTGRES_PASSWORD: let-me-in
+      POSTGRES_DB: graph-node
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - blocksecure-network
+
+  # IPFS for The Graph
+  ipfs:
+    image: ipfs/kubo:latest
+    ports:
+      - "5001:5001"
+    volumes:
+      - ipfs-data:/data/ipfs
+    networks:
+      - blocksecure-network
+
+volumes:
+  mongo-data:
+  postgres-data:
+  ipfs-data:
+
+networks:
+  blocksecure-network:
+    driver: bridge

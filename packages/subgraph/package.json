@@ -1,0 +1,16 @@
+{
+  "name": "@blocksecure/subgraph",
+  "version": "1.0.0",
+  "description": "The Graph subgraph for BlockSecure Chain on-chain monitoring",
+  "scripts": {
+    "codegen": "graph codegen",
+    "build": "graph build",
+    "deploy": "graph deploy --node https://api.thegraph.com/deploy/ blocksecure-chain",
+    "deploy:local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 blocksecure-chain",
+    "create:local": "graph create --node http://localhost:8020/ blocksecure-chain"
+  },
+  "dependencies": {
+    "@graphprotocol/graph-cli": "^0.60.0",
+    "@graphprotocol/graph-ts": "^0.31.0"
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "name": "blocksecure-chain",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Blockchain security platform with smart contract auditing and real-time monitoring",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev --workspace=backend\" \"npm run dev --workspace=frontend\"",
+    "build": "npm run build --workspaces",
+    "test": "npm run test --workspaces",
+    "lint": "npm run lint --workspaces",
+    "contracts:compile": "npm run compile --workspace=contracts",
+    "contracts:test": "npm run test --workspace=contracts",
+    "analyzer:scan": "npm run scan --workspace=analyzer",
+    "subgraph:codegen": "npm run codegen --workspace=subgraph",
+    "subgraph:deploy": "npm run deploy --workspace=subgraph"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "prettier": "^3.1.1",
+    "eslint": "^8.56.0",
+    "typescript": "^5.3.3"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yourusername/blocksecure-chain.git"
+  },
+  "keywords": [
+    "blockchain",
+    "security",
+    "smart-contracts",
+    "audit",
+    "ethereum",
+    "polygon",
+    "web3"
+  ],
+  "author": "",
+  "license": "MIT"
+}
