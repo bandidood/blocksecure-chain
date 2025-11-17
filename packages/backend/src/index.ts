@@ -7,11 +7,17 @@ import dotenv from "dotenv";
 import auditRoutes from "./routes/audit";
 import contractRoutes from "./routes/contract";
 import { errorHandler } from "./middleware/errorHandler";
+import { connectDatabase } from "./config/database";
 
 dotenv.config();
 
 const app: Application = express();
 const PORT = process.env.PORT || 3001;
+
+// Connect to MongoDB
+connectDatabase().catch((error) => {
+  console.error("Failed to connect to MongoDB:", error);
+});
 
 // Middleware
 app.use(helmet());

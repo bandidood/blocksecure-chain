@@ -1,14 +1,18 @@
 import { SlitherAnalyzer } from "./analyzers/SlitherAnalyzer";
+import { MythrilAnalyzer } from "./analyzers/MythrilAnalyzer";
 import { AnalysisResult, AnalyzerConfig } from "./types";
 
 export * from "./types";
 export * from "./analyzers/SlitherAnalyzer";
+export * from "./analyzers/MythrilAnalyzer";
 
 export class VulnerabilityAnalyzer {
   private slither: SlitherAnalyzer;
+  private mythril: MythrilAnalyzer;
 
   constructor() {
     this.slither = new SlitherAnalyzer();
+    this.mythril = new MythrilAnalyzer();
   }
 
   /**
@@ -30,9 +34,19 @@ export class VulnerabilityAnalyzer {
       }
     }
 
+    // Run Mythril if available
+    if (await this.mythril.isAvailable()) {
+      try {
+        const mythrilResult = await this.mythril.analyze(contractPath, config);
+        results.push(mythrilResult);
+      } catch (error: any) {
+        console.error(`Mythril analysis failed: ${error.message}`);
+      }
+    }
+
     if (results.length === 0) {
       throw new Error(
-        "No analyzers available. Please install Slither: pip3 install slither-analyzer"
+        "No analyzers available. Please install Slither (pip3 install slither-analyzer) or Mythril (pip3 install mythril)"
       );
     }
 
@@ -89,6 +103,7 @@ export class VulnerabilityAnalyzer {
   async checkAvailability() {
     return {
       slither: await this.slither.isAvailable(),
+      mythril: await this.mythril.isAvailable(),
     };
   }
 }
